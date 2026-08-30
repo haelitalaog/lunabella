@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luna Bella | Salón de belleza</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --rose: #f7dfe3;
+      --blush: #fceef0;
+      --pink: #e9aab6;
+      --deep: #8f5260;
+      --ink: #392c31;
+      --white: #fffdfc;
+      --line: #ead2d7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--white);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .announcement {
+      background: #382b30;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    .site-header {
+      max-width: 1240px;
+      height: 88px;
+      padding: 0 32px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font: 21px "Playfair Display", serif;
+    }
+
+    .brand small {
+      display: block;
+      font: 7px "DM Sans", sans-serif;
+      letter-spacing: 0.18em;
+    }
+
+    .brand-mark {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--pink);
+      border-radius: 50%;
+      font: 10px "DM Sans", sans-serif;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      font-size: 13px;
+    }
+
+    .main-nav a:hover {
+      color: var(--deep);
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 0;
+      background: transparent;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      background: var(--pink);
+      color: white;
+      border: 0;
+      padding: 15px 22px;
+      font: 600 12px "DM Sans", sans-serif;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .button:hover {
+      background: var(--deep);
+      transform: translateY(-2px);
+    }
+
+    .button-small {
+      padding: 11px 17px;
+    }
+
+    .hero {
+      min-height: 575px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--blush);
+      overflow: hidden;
+    }
+
+    .hero-copy {
+      align-self: center;
+      padding: 90px max(32px, calc((100vw - 1176px) / 2));
+      padding-right: 50px;
+      animation: slide-in 0.8s ease both;
+    }
+
+    .eyebrow {
+      margin: 0 0 15px;
+      color: var(--deep);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      font: 600 50px/1.08 "Playfair Display", serif;
+      letter-spacing: -0.04em;
+    }
+
+    h1 em,
+    h2 em {
+      color: var(--deep);
+    }
+
+    .hero-text {
+      max-width: 430px;
+      margin: 22px 0 28px;
+      color: #705e63;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .text-link {
+      font-size: 12px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 4px;
+    }
+
+    .hero-notes {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 45px;
+      color: #866e74;
+      font-size: 10px;
+    }
+
+    .hero-image-wrap {
+      min-height: 575px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #f6d5db, #eab5c0);
+      animation: fade-in 1s ease both;
+    }
+
+    .hero-image {
+      z-index: 1;
+      width: 59%;
+      height: 72%;
+      min-height: 400px;
+      object-fit: cover;
+      border-radius: 180px 180px 4px 4px;
+    }
+
+    .hero-orbit {
+      position: absolute;
+      border: 1px solid #fff9;
+      border-radius: 50%;
+    }
+
+    .orbit-one {
+      width: 590px;
+      height: 590px;
+      animation: spin 25s linear infinite;
+    }
+
+    .orbit-two {
+      width: 410px;
+      height: 410px;
+      animation: spin 18s linear infinite reverse;
+    }
+
+    .floating-card {
+      position: absolute;
+      z-index: 2;
+      bottom: 50px;
+      left: 8%;
+      padding: 18px 23px;
+      background: #fffdfce8;
+      box-shadow: 0 12px 30px #77414b1c;
+      font: italic 16px "Playfair Display", serif;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .section {
+      max-width: 1176px;
+      margin: auto;
+      padding: 95px 32px;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+    }
+
+    .intro h2,
+    .section-heading h2 {
+      font-size: 40px;
+    }
+
+    .intro-copy {
+      max-width: 430px;
+      color: #6e6064;
+      line-height: 1.75;
+    }
+
+    .services {
+      max-width: none;
+      background: #fdf7f7;
+      padding-left: max(32px, calc((100vw - 1176px) / 2));
+      padding-right: max(32px, calc((100vw - 1176px) / 2));
+    }
+
+    .centered {
+      text-align: center;
+    }
+
+    .centered > p:last-child {
+      color: #766369;
+      font-size: 14px;
+    }
+
+    .service-grid,
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 45px;
+    }
+
+    .service-card {
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      padding: 28px 24px;
+      background: white;
+      border: 1px solid transparent;
+      transition: 0.25s;
+    }
+
+    .service-card:hover,
+    .mini-card:hover {
+      transform: translateY(-7px);
+      border-color: var(--pink);
+    }
+
+    .service-card.feature {
+      background: var(--rose);
+    }
+
+    .service-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--blush);
+      color: var(--deep);
+    }
+
+    .service-card h3 {
+      margin: 22px 0 8px;
+      font: 600 25px "Playfair Display", serif;
+    }
+
+    .service-card p {
+      color: #75656a;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .service-card a {
+      margin-top: auto;
+      padding-top: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .promotion {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #382b30;
+      color: white;
+    }
+
+    .promo-image {
+      min-height: 520px;
+    }
+
+    .promo-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .promo-copy {
+      padding: 80px;
+      align-self: center;
+    }
+
+    .promo-copy .eyebrow,
+    .promo-copy h2 em {
+      color: #f2cbd2;
+    }
+
+    .promo-copy p:not(.eyebrow) {
+      color: #e3d2d5;
+      line-height: 1.6;
+    }
+
+    .price {
+      display: flex;
+      gap: 18px;
+      align-items: baseline;
+      margin: 25px 0;
+    }
+
+    .price strong {
+      font: 600 24px "Playfair Display", serif;
+    }
+
+    .button-dark {
+      background: white;
+      color: var(--ink);
+    }
+
+    .price-list {
+      padding-top: 100px;
+    }
+
+    .price-categories {
+      max-width: 900px;
+      margin: 45px auto 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .price-categories details {
+      background: white;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .price-categories summary {
+      padding: 22px 20px;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      list-style: none;
+      font: 600 21px "Playfair Display", serif;
+    }
+
+    .price-categories summary i {
+      color: var(--deep);
+      font-style: normal;
+    }
+
+    .price-categories details[open] summary {
+      background: var(--blush);
+    }
+
+    .price-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 30px;
+      padding: 12px 20px 22px;
+    }
+
+    .price-items div {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px dashed #e8d5d8;
+      color: #6e5b60;
+      font-size: 13px;
+    }
+
+    .price-items strong {
+      color: var(--deep);
+      white-space: nowrap;
+    }
+
+    .prices-note {
+      max-width: 600px;
+      margin: 25px auto 0;
+      text-align: center;
+      color: #89767b;
+      font-size: 11px;
+    }
+
+    .catalog {
+      padding-top: 95px;
+      padding-bottom: 95px;
+    }
+
+    .catalog-pink {
+      max-width: none;
+      background: #fff7f8;
+      padding-left: max(32px, calc((100vw - 1176px) / 2));
+      padding-right: max(32px, calc((100vw - 1176px) / 2));
+    }
+
+    .catalog-title {
+      max-width: 650px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .catalog-title h2 {
+      font-size: 40px;
+    }
+
+    .catalog-title > p:last-child {
+      color: #7a666c;
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 20px;
+      margin-top: 42px;
+    }
+
+    .detail-card {
+      min-height: 370px;
+      display: grid;
+      grid-template-columns: 42% 58%;
+      background: white;
+      border: 1px solid var(--line);
+    }
+
+    .detail-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-card > div,
+    .soft-card {
+      padding: 34px;
+    }
+
+    .soft-card {
+      display: block;
+      background: var(--rose);
+      border: 0;
+    }
+
+    .tag {
+      color: var(--deep);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .detail-card h3 {
+      margin: 12px 0;
+      font: 600 30px "Playfair Display", serif;
+    }
+
+    .detail-card p,
+    .detail-card ul {
+      color: #756168;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .detail-card ul {
+      padding: 0;
+      list-style: none;
+    }
+
+    .detail-card li::before {
+      content: "✦";
+      color: var(--pink);
+      margin-right: 7px;
+    }
+
+    .card-price {
+      display: block;
+      color: var(--deep);
+      font: 600 26px "Playfair Display", serif;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-top: 24px;
+    }
+
+    .mini-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .mini-card {
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--line);
+      transition: 0.25s;
+    }
+
+    .mini-card img {
+      width: 100%;
+      height: 175px;
+      object-fit: cover;
+    }
+
+    .mini-card div {
+      padding: 17px;
+    }
+
+    .mini-card span {
+      font: 600 18px "Playfair Display", serif;
+    }
+
+    .mini-card p {
+      min-height: 58px;
+      color: #78656a;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .mini-card strong {
+      color: var(--deep);
+      font: 600 20px "Playfair Display", serif;
+    }
+
+    .catalog-link {
+      display: block;
+      width: max-content;
+      margin: 35px auto 0;
+    }
+
+    .wedding {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #f8e3e5;
+    }
+
+    .wedding-image {
+      min-height: 570px;
+    }
+
+    .wedding-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .wedding-copy {
+      padding: 80px;
+      align-self: center;
+    }
+
+    .wedding-copy h2 {
+      font-size: 45px;
+    }
+
+    .wedding-copy > p:not(.eyebrow) {
+      color: #735e64;
+      line-height: 1.65;
+    }
+
+    .wedding-options {
+      margin: 28px 0;
+    }
+
+    .wedding-options div {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      padding: 13px 0;
+      border-top: 1px solid #d8b9c0;
+    }
+
+    .wedding-options div:last-child {
+      border-bottom: 1px solid #d8b9c0;
+    }
+
+    .wedding-options span {
+      font: 600 17px "Playfair Display", serif;
+    }
+
+    .wedding-options strong {
+      color: var(--deep);
+      font: 600 18px "Playfair Display", serif;
+    }
+
+    .wedding-options small {
+      grid-column: span 2;
+      color: #7d686d;
+      font-size: 10px;
+      margin-top: 4px;
+    }
+
+    .gallery {
+      padding-bottom: 100px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr 1fr;
+      grid-template-rows: 180px 180px;
+      gap: 14px;
+      margin-top: 40px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-tall {
+      grid-row: span 2;
+    }
+
+    .gallery-quote {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 28px;
+      background: var(--rose);
+      color: #704650;
+      font: italic 22px "Playfair Display", serif;
+    }
+
+    .gallery-quote span {
+      margin-top: 15px;
+      font: 700 8px "DM Sans", sans-serif;
+      letter-spacing: 0.15em;
+    }
+
+    .booking {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      padding: 85px max(32px, calc((100vw - 1176px) / 2));
+      background: var(--rose);
+    }
+
+    .booking h2 {
+      font-size: 47px;
+    }
+
+    .booking-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-content: center;
+    }
+
+    .booking-form label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .booking-form input,
+    .booking-form select {
+      display: block;
+      width: 100%;
+      margin-top: 7px;
+      padding: 14px;
+      border: 0;
+      background: white;
+      font: 13px "DM Sans", sans-serif;
+    }
+
+    .booking-form button,
+    .form-message {
+      grid-column: span 2;
+    }
+
+    .form-message {
+      min-height: 18px;
+      margin: 0;
+      color: var(--deep);
+      font-size: 12px;
+    }
+
+    footer {
+      max-width: 1176px;
+      margin: auto;
+      padding: 42px 32px 22px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+    }
+
+    footer > p {
+      text-align: center;
+      color: #856d73;
+      font: italic 17px "Playfair Display", serif;
+    }
+
+    footer > div {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      text-align: right;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    footer > small {
+      grid-column: span 3;
+      margin-top: 35px;
+      text-align: center;
+      color: #9d8e92;
+      font-size: 9px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: 0.7s;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes float {
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 900px) {
+      .service-grid,
+      .mini-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .catalog-grid,
+      .wedding,
+      .promotion,
+      .booking,
+      .hero,
+      .intro {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image-wrap {
+        min-height: 430px;
+      }
+
+      .promo-copy,
+      .wedding-copy {
+        padding: 60px 28px;
+      }
+
+      .detail-card {
+        grid-template-columns: 40% 60%;
+      }
+
+      .main-nav {
+        display: none;
+        position: absolute;
+        z-index: 10;
+        top: 112px;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        flex-direction: column;
+        background: white;
+        text-align: center;
+        box-shadow: 0 8px 20px #0002;
+      }
+
+      .main-nav.open {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .site-header {
+        padding: 0 20px;
+        height: 72px;
+      }
+
+      h1,
+      h2,
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .section {
+        padding: 70px 24px;
+      }
+
+      .service-grid,
+      .mini-grid,
+      .booking-form,
+      .price-items {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-card {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-card img {
+        height: 190px;
+      }
+
+      .booking-form button,
+      .form-message {
+        grid-column: auto;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 140px 140px 140px;
+      }
+
+      footer {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        text-align: center;
+      }
+
+      footer > p,
+      footer > div {
+        justify-content: center;
+        text-align: center;
+      }
+
+      footer > small {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="announcement">✨ Tu momento de brillar empieza aquí · Reserva tu cita</div>
+
+  <header class="site-header">
+    <a class="brand" href="#inicio">
+      <span class="brand-mark">LB</span>
+      <span><strong>Luna</strong> Bella<small>BEAUTY STUDIO</small></span>
+    </a>
+
+    <button class="menu-toggle" type="button">☰</button>
+
+    <nav class="main-nav">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#precios">Precios</a>
+      <a href="#promos">Promociones</a>
+      <a href="#galeria">Galería</a>
+      <a class="button button-small" href="#contacto">Reservar cita</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow">TU BELLEZA, TU RITUAL</p>
+        <h1>Un toque de <em>luz</em> para sentirte increíble.</h1>
+        <p class="hero-text">En Luna Bella cuidamos cada detalle. Relájate, renueva tu estilo y deja que tu esencia brille.</p>
+
+        <div class="hero-actions">
+          <a class="button" href="#contacto">Agendar mi cita <span>→</span></a>
+          <a class="text-link" href="#servicios">Ver servicios <span>↓</span></a>
+        </div>
+
+        <div class="hero-notes">
+          <span>✦ Atención personalizada</span>
+          <span>✦ Productos de calidad</span>
+        </div>
+      </div>
+
+      <div class="hero-image-wrap">
+        <div class="hero-orbit orbit-one"></div>
+        <div class="hero-orbit orbit-two"></div>
+
+        <img class="hero-image" src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1000&q=85" alt="Salón de belleza" />
+
+        <div class="floating-card">
+          ✦<br />
+          Un espacio hecho<br />para consentirte.
+        </div>
+      </div>
+    </section>
+
+    <section class="intro section" id="nosotros">
+      <div>
+        <p class="eyebrow">BIENVENIDA A LUNA BELLA</p>
+        <h2>Más que un salón,<br />un momento para <em>vos.</em></h2>
+      </div>
+
+      <div class="intro-copy">
+        <p>Creemos que la belleza se vive mejor cuando te sentís cómoda, escuchada y mimada. Por eso creamos un espacio cálido donde cada visita se convierte en tu pausa favorita.</p>
+        <a class="text-link" href="#contacto">Conocenos <span>→</span></a>
+      </div>
+    </section>
+
+    <section class="services section" id="servicios">
+      <div class="centered">
+        <p class="eyebrow">LO QUE HACEMOS</p>
+        <h2>Elegí tu momento <em>Luna Bella.</em></h2>
+        <p>Tratamientos pensados para que salgas radiante y te sientas aún mejor.</p>
+      </div>
+
+      <div class="service-grid">
+        <article class="service-card">
+          <div class="service-icon">✂</div>
+          <h3>Cabello</h3>
+          <p>Cortes, alisados, peinados y cambios de look que hablan de vos.</p>
+          <a href="#catalogo-cabello">Ver opciones →</a>
+        </article>
+
+        <article class="service-card feature">
+          <div class="service-icon">✦</div>
+          <h3>Hidratación</h3>
+          <p>Rituales nutritivos para recuperar el brillo y suavidad de tu pelo.</p>
+          <a href="#catalogo-cabello">Ver opciones →</a>
+        </article>
+
+        <article class="service-card">
+          <div class="service-icon">♡</div>
+          <h3>Manos & uñas</h3>
+          <p>Manicuría, esmaltado y nail art para llevar belleza en cada gesto.</p>
+          <a href="#catalogo-unas">Ver opciones →</a>
+        </article>
+
+        <article class="service-card">
+          <div class="service-icon">☾</div>
+          <h3>Cejas & pestañas</h3>
+          <p>Miradas definidas con perfilado, laminado y extensiones.</p>
+          <a href="#catalogo-mirada">Ver opciones →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="promotion" id="promos">
+      <div class="promo-image">
+        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=900&q=85" alt="Manicure" />
+      </div>
+
+      <div class="promo-copy">
+        <p class="eyebrow">PROMO DEL MES</p>
+        <p>BEAUTY COMBO</p>
+        <h2>Manos lindas,<br /><em>energía bonita.</em></h2>
+        <p>Manicuría + esmaltado semipermanente + hidratación de manos.</p>
+
+        <div class="price">
+          <span>Precio especial</span>
+          <strong>Consultá</strong>
+        </div>
+
+        <a class="button button-dark" href="#contacto">Quiero esta promo →</a>
+      </div>
+    </section>
+
+    <section class="price-list section" id="precios">
+      <div class="centered">
+        <p class="eyebrow">NUESTRO MENÚ DE BELLEZA</p>
+        <h2>Servicios & <em>precios.</em></h2>
+        <p>Precios de referencia en bolivianos (Bs).</p>
+      </div>
+
+      <div class="price-categories">
+        <details open>
+          <summary><span>01 · Uñas y manicura</span><i>+</i></summary>
+          <div class="price-items">
+            <div><span>Manicura Express</span><strong>Bs 40</strong></div>
+            <div><span>Manicura Deluxe</span><strong>Bs 70</strong></div>
+            <div><span>Uñas Tips</span><strong>Bs 60</strong></div>
+            <div><span>Kapping gel / acrílico</span><strong>Bs 90</strong></div>
+            <div><span>Uñas Polygel</span><strong>Bs 100</strong></div>
+            <div><span>Uñas Soft Gel</span><strong>Bs 90</strong></div>
+            <div><span>Uñas esculturales</span><strong>Bs 150</strong></div>
+            <div><span>Tips con acrílico</span><strong>Bs 100</strong></div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span>02 · Extras de uñas</span><i>+</i></summary>
+          <div class="price-items">
+            <div><span>Retoque acrílico</span><strong>Bs 40</strong></div>
+            <div><span>Retoque + pintado en gel</span><strong>Bs 80</strong></div>
+            <div><span>Retoque Soft Gel</span><strong>Bs 30</strong></div>
+            <div><span>Reposición de acrílico</span><strong>Bs 20</strong></div>
+            <div><span>Pintado tradicional</span><strong>Desde Bs 10</strong></div>
+            <div><span>Pintado en gel</span><strong>Bs 50</strong></div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span>03 · Cejas y pestañas</span><i>+</i></summary>
+          <div class="price-items">
+            <div><span>Perfilado de cejas</span><strong>Bs 20</strong></div>
+            <div><span>Pigmentación con henna</span><strong>Bs 35</strong></div>
+            <div><span>Laminado de cejas</span><strong>Bs 40</strong></div>
+            <div><span>Cejas 4K</span><strong>Bs 60</strong></div>
+            <div><span>Lifting de pestañas</span><strong>Bs 50</strong></div>
+            <div><span>Pestañas individuales</span><strong>Bs 60</strong></div>
+            <div><span>Pestañas pelo a pelo</span><strong>Bs 120</strong></div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span>04 · Cabello, depilación y novias</span><i>+</i></summary>
+          <div class="price-items">
+            <div><span>Alisado japonés</span><strong>Bs 180</strong></div>
+            <div><span>Rostro completo</span><strong>Bs 60</strong></div>
+            <div><span>Media pierna</span><strong>Bs 60</strong></div>
+            <div><span>Piernas completas</span><strong>Bs 100</strong></div>
+            <div><span>Bikini</span><strong>Bs 120</strong></div>
+            <div><span>Paquete novia básico</span><strong>Bs 180</strong></div>
+            <div><span>Paquete novia VIP</span><strong>Bs 390</strong></div>
+            <div><span>Paquete novia Super VIP</span><strong>Bs 500</strong></div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="catalog section" id="catalogo-cabello">
+      <div class="catalog-title">
+        <p class="eyebrow">CABELLO E HIDRATACIÓN</p>
+        <h2>Tu pelo, <em>con nueva luz.</em></h2>
+        <p>Elegí el ritual que mejor se adapte a tu estilo.</p>
+      </div>
+
+      <div class="catalog-grid">
+        <article class="detail-card">
+          <img src="https://lanaeslay.com/cdn/shop/files/B6CA126C-D7FB-42EC-8FBD-A17B92DA66BB.jpg?v=1719384861&width=1445" alt="Cabello alisado" />
+
+          <div>
+            <span class="tag">ALISADOS</span>
+            <h3>Alisado japonés</h3>
+            <p>Ideal para cabello rizado, seco o difícil de manejar. Acabado sedoso y con brillo.</p>
+            <ul>
+              <li>Aplicación: 2 horas</li>
+              <li>Duración: hasta 8 meses</li>
+              <li>Para cualquier largo</li>
+            </ul>
+            <strong class="card-price">Bs 180</strong>
+          </div>
+        </article>
+
+        <article class="soft-card">
+          <span class="tag">PROMO HIDRATACIÓN</span>
+          <h3>Ritual de hidratación</h3>
+          <p>Un mimo profundo para devolver suavidad, brillo y movimiento a tu cabello.</p>
+          <ul>
+            <li>Diagnóstico personalizado</li>
+            <li>Lavado + hidratación nutritiva</li>
+            <li>Masaje relajante y secado</li>
+          </ul>
+
+          <div class="card-footer">
+            <strong class="card-price">Consultar precio</strong>
+            <a class="text-link" href="#contacto">Reservar →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="catalog catalog-pink section" id="catalogo-unas">
+      <div class="catalog-title">
+        <p class="eyebrow">MANOS & UÑAS</p>
+        <h2>Detalles que <em>enamoran.</em></h2>
+        <p>Una selección de los servicios más pedidos.</p>
+      </div>
+
+      <div class="mini-grid">
+        <article class="mini-card">
+          <img src="https://images.squarespace-cdn.com/content/v1/67812f6419fd772546b14cbd/c197ba25-67a6-43ba-9c7f-caf4bea842eb/DSC00002.jpg" alt="Manicura Express" />
+          <div>
+            <span>Manicura Express</span>
+            <p>Limpieza profunda, exfoliación, crema hidratante y pintado tradicional.</p>
+            <strong>Bs 40</strong>
+          </div>
+        </article>
+
+        <article class="mini-card">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=700&q=85" alt="Manicura Deluxe" />
+          <div>
+            <span>Manicura Deluxe</span>
+            <p>Manicuría completa, crema aclarante y pintado en gel.</p>
+            <strong>Bs 70</strong>
+          </div>
+        </article>
+
+        <article class="mini-card">
+          <img src="https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=700&q=85" alt="Uñas Polygel" />
+          <div>
+            <span>Uñas Polygel</span>
+            <p>Manicura rusa, hidratación, largo y forma a elección.</p>
+            <strong>Bs 100</strong>
+          </div>
+        </article>
+
+        <article class="mini-card">
+          <img src="https://appointment-public.haulmer.com/appointments/0232eadd-e24a-4e6e-a206-a0491c426384/dbc09740ea91434ea5cc88b57a98568d.jpeg" alt="Uñas Soft Gel francesas" />
+          <div>
+            <span>Uñas Soft Gel</span>
+            <p>Manicura rusa, hidratación y uñas francesas Soft Gel.</p>
+            <strong>Bs 90</strong>
+          </div>
+        </article>
+
+        <article class="mini-card">
+          <img src="https://coolnailsfortlauderdale.com/images/services/04.webp" alt="Hidratación de pies" />
+          <div>
+            <span>Hidratación de pies</span>
+            <p>Pedicuría spa con exfoliación, hidratación y masaje relajante.</p>
+            <strong>Consultá</strong>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="catalog section" id="catalogo-mirada">
+      <div class="catalog-title">
+        <p class="eyebrow">CEJAS & PESTAÑAS</p>
+        <h2>Una mirada que <em>habla.</em></h2>
+      </div>
+
+      <div class="mini-grid">
+        <article class="mini-card">
+          <img src="https://glowbar.gr/wp-content/uploads/2024/07/IMG_1281-1.jpg" alt="Perfilado de cejas" />
+          <div>
+            <span>Perfilado de cejas</span>
+            <p>Visagismo, medición, depilado con cera y aceite calmante.</p>
+            <strong>Bs 20</strong>
+          </div>
+        </article>
+
+        <article class="mini-card">
+          <img src="https://cdn1.treatwell.net/images/view/v2.i10861542.w1080.h720.x6EFB6561/" alt="Laminado de cejas" />
+          <div>
+            <span>Laminado de cejas</span>
+            <p>Diseño, depilado, laminado y lash botox.</p>
+            <strong>Bs 40</strong>
+          </div>
+        </article>
+
+        <article class="mini-card">
+          <img src="https://static.glossgenius.com/public/service/233876a81c7b84f84d5c48ff4c1ab035f508341a/image/922e217c7a9b87e941868a7c4835988b.jpg" alt="Lifting de pestañas" />
+          <div>
+            <span>Lifting de pestañas</span>
+            <p>Lifting, tinte efecto rímel, lash botox y vitaminas.</p>
+            <strong>Bs 50</strong>
+          </div>
+        </article>
+
+        <article class="mini-card">
+          <img src="https://images.squarespace-cdn.com/content/v1/587d3183cd0f68450becdb9e/1629138151440-THQEN5AYSUU7W0CSN6OL/best%2Blash%2Bextensions%2Bedmonton%2Bhoneypot%2Blashes" alt="Pestañas pelo a pelo" />
+          <div>
+            <span>Pestañas pelo a pelo</span>
+            <p>Curvatura, tamaño y estilo a elección.</p>
+            <strong>Bs 120</strong>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="wedding" id="novias">
+      <div class="wedding-image">
+        <img src="https://www.areejbesthairdressing.com/assets/bridal-service-BJcOGPi3.jpg" alt="Maquillaje y peinado de novia" />
+      </div>
+
+      <div class="wedding-copy">
+        <p class="eyebrow">PROMOCIONES PARA NOVIAS</p>
+        <h2>Tu día merece<br /><em>algo inolvidable.</em></h2>
+        <p>Paquetes con maquillaje y peinado pensados para acompañarte en cada detalle.</p>
+
+        <div class="wedding-options">
+          <div>
+            <span>Paquete Básico</span>
+            <strong>Bs 180</strong>
+            <small>Limpieza facial, maquillaje social y peinado.</small>
+          </div>
+
+          <div>
+            <span>Paquete VIP</span>
+            <strong>Bs 390</strong>
+            <small>Maquillaje glam, pestañas y uñas soft gel.</small>
+          </div>
+
+          <div>
+            <span>Super VIP</span>
+            <strong>Bs 500</strong>
+            <small>Pedicure spa + gel y servicios premium.</small>
+          </div>
+        </div>
+
+        <a class="button" href="#contacto">Consultar paquete de novia →</a>
+      </div>
+    </section>
+
+    <section class="gallery section" id="galeria">
+      <div>
+        <p class="eyebrow">INSPIRACIÓN LUNA BELLA</p>
+        <h2>Pequeños detalles,<br /><em>grandes cambios.</em></h2>
+      </div>
+
+      <div class="gallery-grid">
+        <img class="gallery-tall" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=700&q=85" alt="Peinado" />
+        <img src="https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=700&q=85" alt="Uñas" />
+
+        <div class="gallery-quote">
+          “La belleza comienza en el instante en que decidís ser vos.”
+          <span>— LUNA BELLA</span>
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=700&q=85" alt="Productos de uñas" />
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=700&q=85" alt="Interior salón" />
+      </div>
+    </section>
+
+    <section class="booking" id="contacto">
+      <div>
+        <p class="eyebrow">TU PRÓXIMA CITA TE ESPERA</p>
+        <h2>¿Lista para<br /><em>brillar?</em></h2>
+        <p>Escribinos y reservá tu momento de cuidado.</p>
+      </div>
+
+      <form class="booking-form" id="booking-form">
+        <label>
+          Tu nombre
+          <input type="text" name="nombre" placeholder="¿Cómo te llamás?" required />
+        </label>
+
+        <label>
+          ¿Qué te gustaría hacer?
+          <select name="servicio" required>
+            <option value="" selected disabled>Elegí un servicio</option>
+            <option>Cabello y alisados</option>
+            <option>Manos y uñas</option>
+            <option>Cejas y pestañas</option>
+            <option>Hidratación de pies</option>
+            <option>Depilación</option>
+            <option>Paquetes para novias</option>
+            <option>Quiero consultar una promo</option>
+          </select>
+        </label>
+
+        <button class="button button-dark" type="submit">Solicitar mi cita →</button>
+        <p class="form-message"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="#inicio">
+      <span class="brand-mark">LB</span>
+      <span><strong>Luna</strong> Bella<small>BEAUTY STUDIO</small></span>
+    </a>
+
+    <p>Tu belleza, a tu manera.</p>
+
+    <div>
+      <a href="https://www.instagram.com/lunabella/" target="_blank">Instagram @lunabella</a>
+      <a href="https://wa.me/59175450574?text=Hola%20Luna%20Bella%2C%20quiero%20reservar%20una%20cita." target="_blank">WhatsApp</a>
+    </div>
+
+    <small>© 2026 Luna Bella · Todos los derechos reservados</small>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".main-nav");
+
+    menuButton.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("open");
+      });
+    });
+
+    const revealTargets = document.querySelectorAll(".section, .booking, footer");
+
+    revealTargets.forEach((element) => {
+      element.classList.add("reveal");
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealTargets.forEach((element) => {
+      observer.observe(element);
+    });
+
+    document.querySelectorAll(".price-categories details").forEach((detail) => {
+      detail.addEventListener("toggle", () => {
+        if (!detail.open) return;
+
+        document.querySelectorAll(".price-categories details").forEach((other) => {
+          if (other !== detail) {
+            other.open = false;
+          }
+        });
+      });
+    });
+
+    document.querySelector("#booking-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(event.currentTarget);
+      const name = formData.get("nombre");
+      const service = formData.get("servicio");
+
+      const message = `Hola Luna Bella, soy ${name} y quiero reservar una cita para: ${service}.`;
+
+      window.open(
+        `https://wa.me/59175450574?text=${encodeURIComponent(message)}`,
+        "_blank"
+      );
+    });
+  </script>
+</body>
+</html>
