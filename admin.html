@@ -1,0 +1,1096 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrador | Luna Bella</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink:#e9aab6;
+  --rose:#f7dfe3;
+  --blush:#fceef0;
+  --deep:#8f5260;
+  --ink:#392c31;
+  --white:#fffdfc;
+  --line:#ead2d7;
+  --green:#477b61;
+  --red:#b64d5b;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  font-family:"DM Sans",sans-serif;
+  background:#faf5f5;
+  color:var(--ink);
+}
+
+button,input,textarea,select {
+  font:inherit;
+}
+
+button { cursor:pointer; }
+
+.layout {
+  display:grid;
+  grid-template-columns:250px 1fr;
+  min-height:100vh;
+}
+
+.sidebar {
+  background:#382b30;
+  color:white;
+  padding:30px 18px;
+}
+
+.logo {
+  text-align:center;
+  padding:10px 0 35px;
+  font:26px "Playfair Display",serif;
+}
+
+.logo small {
+  display:block;
+  font:9px "DM Sans",sans-serif;
+  letter-spacing:4px;
+  margin-top:5px;
+  color:#f2cbd2;
+}
+
+.sidebar-title {
+  color:#c9aeb5;
+  font-size:10px;
+  letter-spacing:2px;
+  margin:15px 12px;
+}
+
+.nav-button {
+  display:block;
+  width:100%;
+  padding:15px;
+  margin-bottom:8px;
+  border:0;
+  border-radius:7px;
+  text-align:left;
+  color:white;
+  background:transparent;
+  font-size:13px;
+}
+
+.nav-button:hover,
+.nav-button.active {
+  background:#8f5260;
+}
+
+.back-link {
+  display:block;
+  margin-top:45px;
+  padding:13px;
+  color:#f2cbd2;
+  text-decoration:none;
+  font-size:13px;
+}
+
+.main {
+  padding:35px;
+  min-width:0;
+}
+
+.topbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:35px;
+}
+
+.topbar h1 {
+  font:32px "Playfair Display",serif;
+  margin:0;
+}
+
+.topbar p {
+  color:#89767b;
+  font-size:13px;
+  margin:7px 0 0;
+}
+
+.admin-label {
+  background:var(--rose);
+  color:var(--deep);
+  padding:10px 16px;
+  border-radius:30px;
+  font-size:12px;
+}
+
+.panel { display:none; }
+.panel.active { display:block; }
+
+.welcome {
+  background:linear-gradient(120deg,#f7dfe3,#fceef0);
+  border-radius:12px;
+  padding:30px;
+  margin-bottom:25px;
+}
+
+.welcome h2 {
+  font:27px "Playfair Display",serif;
+  margin:0 0 10px;
+}
+
+.welcome p {
+  color:#735e64;
+  font-size:13px;
+  margin:0;
+}
+
+.cards {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-bottom:30px;
+}
+
+.stat-card {
+  background:white;
+  padding:24px;
+  border:1px solid var(--line);
+  border-radius:10px;
+}
+
+.stat-card span {
+  color:#89767b;
+  font-size:12px;
+}
+
+.stat-card strong {
+  display:block;
+  margin-top:12px;
+  font:30px "Playfair Display",serif;
+  color:var(--deep);
+}
+
+.content-card {
+  background:white;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:25px;
+  margin-bottom:22px;
+}
+
+.content-card h2 {
+  font:23px "Playfair Display",serif;
+  margin:0 0 22px;
+}
+
+.form-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.field {
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.field.full {
+  grid-column:1/-1;
+}
+
+.field label {
+  font-size:12px;
+  font-weight:700;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width:100%;
+  border:1px solid var(--line);
+  background:#fffdfc;
+  padding:13px;
+  border-radius:6px;
+  outline:none;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color:var(--pink);
+}
+
+.field textarea {
+  resize:vertical;
+  min-height:85px;
+}
+
+.primary {
+  background:var(--deep);
+  color:white;
+  padding:13px 20px;
+  border:0;
+  border-radius:6px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.primary:hover { background:#70404b; }
+
+.secondary {
+  background:var(--rose);
+  color:var(--deep);
+  padding:10px 14px;
+  border:0;
+  border-radius:5px;
+  font-size:12px;
+}
+
+.danger {
+  background:#fbe9eb;
+  color:var(--red);
+  padding:10px 14px;
+  border:0;
+  border-radius:5px;
+  font-size:12px;
+}
+
+.actions {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+.table-wrap { overflow-x:auto; }
+
+table {
+  width:100%;
+  border-collapse:collapse;
+  min-width:550px;
+}
+
+th,td {
+  text-align:left;
+  padding:14px 10px;
+  border-bottom:1px solid #f0e5e7;
+  font-size:12px;
+}
+
+th {
+  color:var(--deep);
+  background:#fff7f8;
+}
+
+.status {
+  padding:5px 9px;
+  border-radius:20px;
+  background:#e7f3eb;
+  color:var(--green);
+  font-size:10px;
+}
+
+.low {
+  background:#fbe9eb;
+  color:var(--red);
+}
+
+.empty {
+  text-align:center;
+  padding:25px;
+  color:#96858a;
+}
+
+.notice {
+  padding:14px;
+  background:#fff7e8;
+  border:1px solid #f1dfb7;
+  border-radius:7px;
+  color:#82672f;
+  font-size:12px;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.message {
+  margin-top:15px;
+  color:var(--green);
+  font-size:12px;
+}
+
+footer {
+  padding:30px 0;
+  text-align:center;
+  color:#a18e93;
+  font-size:11px;
+}
+
+@media(max-width:850px) {
+  .layout { grid-template-columns:1fr; }
+  .sidebar { padding:15px; }
+  .logo { padding:5px 0 15px; }
+  .sidebar-title { display:none; }
+  .sidebar nav {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:5px;
+  }
+  .nav-button { margin:0; }
+  .back-link { margin-top:12px; }
+  .main { padding:20px; }
+  .cards { grid-template-columns:1fr; }
+}
+
+@media(max-width:500px) {
+  .topbar h1 { font-size:25px; }
+  .form-grid { grid-template-columns:1fr; }
+  .field.full { grid-column:auto; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      Luna Bella
+      <small>BEAUTY STUDIO</small>
+    </div>
+
+    <p class="sidebar-title">MENÚ PRINCIPAL</p>
+
+    <nav>
+      <button class="nav-button active" data-panel="inicio">⌂ Inicio</button>
+      <button class="nav-button" data-panel="servicios">✂ Servicios</button>
+      <button class="nav-button" data-panel="productos">▣ Productos</button>
+      <button class="nav-button" data-panel="configuracion">⚙ Configuración</button>
+    </nav>
+
+    <a class="back-link" href="index.html">← Volver a Luna Bella</a>
+
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div>
+        <h1>Panel administrativo</h1>
+        <p>Gestiona tu salón de belleza desde un solo lugar.</p>
+      </div>
+      <span class="admin-label">Administración</span>
+    </header>
+
+    <!-- INICIO -->
+
+    <section class="panel active" id="inicio">
+
+      <div class="welcome">
+        <h2>¡Bienvenida a Luna Bella!</h2>
+        <p>Administra los servicios, productos y la información de tu salón.</p>
+      </div>
+
+      <div class="cards">
+
+        <div class="stat-card">
+          <span>Servicios registrados</span>
+          <strong id="total-servicios">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Productos registrados</span>
+          <strong id="total-productos">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Productos con stock bajo</span>
+          <strong id="stock-bajo">0</strong>
+        </div>
+
+      </div>
+
+      <div class="content-card">
+        <h2>Bienvenida al administrador</h2>
+        <p style="font-size:13px;line-height:1.8;color:#806e73">
+          Desde este panel puedes agregar servicios, actualizar sus precios,
+          registrar productos, controlar existencias y modificar los datos
+          generales de Luna Bella.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- SERVICIOS -->
+
+    <section class="panel" id="servicios">
+
+      <div class="content-card">
+
+        <h2 id="titulo-servicio">Agregar nuevo servicio</h2>
+
+        <form id="form-servicio">
+
+          <input type="hidden" id="servicio-id">
+
+          <div class="form-grid">
+
+            <div class="field">
+              <label>Nombre del servicio</label>
+              <input id="servicio-nombre" required placeholder="Ej. Manicure">
+            </div>
+
+            <div class="field">
+              <label>Categoría</label>
+              <select id="servicio-categoria" required>
+                <option value="">Seleccionar</option>
+                <option>Cabello</option>
+                <option>Manos y uñas</option>
+                <option>Cejas y pestañas</option>
+                <option>Tratamientos faciales</option>
+                <option>Depilación</option>
+                <option>Otros</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Precio (Bs)</label>
+              <input id="servicio-precio" type="number" min="0" step="0.50" required>
+            </div>
+
+            <div class="field">
+              <label>Duración aproximada (minutos)</label>
+              <input id="servicio-duracion" type="number" min="1" placeholder="60">
+            </div>
+
+            <div class="field full">
+              <label>Descripción</label>
+              <textarea id="servicio-descripcion" required placeholder="Describe el servicio..."></textarea>
+            </div>
+            
+            <div class="field full">
+            <label for="servicio-imagen">Imagen del servicio (obligatoria)</label>
+            <input
+                id="servicio-imagen"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                required
+            >
+            <small>Formatos permitidos: JPG, PNG o WEBP. La imagen se mostrará en la página principal.</small>
+
+            <div id="vista-previa-imagen" style="display:none; margin-top:12px;">
+                <img
+                id="imagen-previa"
+                src=""
+                alt="Vista previa del servicio"
+                style="width:180px;height:130px;object-fit:cover;border-radius:8px;border:1px solid #ead2d7;"
+                >
+            
+            </div>
+
+
+          </div>
+
+          <div class="actions">
+            <button class="primary" type="submit">Guardar servicio</button>
+            <button class="secondary" type="reset" id="cancelar-servicio">Limpiar</button>
+          </div>
+
+          <p class="message" id="mensaje-servicio"></p>
+
+        </form>
+      </div>
+
+      <div class="content-card">
+        <h2>Servicios registrados</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Servicio</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Duración</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-servicios"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- PRODUCTOS -->
+
+    <section class="panel" id="productos">
+
+      <div class="content-card">
+
+        <h2 id="titulo-producto">Registrar producto</h2>
+
+        <form id="form-producto">
+
+          <input type="hidden" id="producto-id">
+
+          <div class="form-grid">
+
+            <div class="field">
+              <label>Nombre del producto</label>
+              <input id="producto-nombre" required placeholder="Ej. Shampoo">
+            </div>
+
+            <div class="field">
+              <label>Marca</label>
+              <input id="producto-marca" placeholder="Marca del producto">
+            </div>
+
+            <div class="field">
+              <label>Cantidad disponible</label>
+              <input id="producto-cantidad" type="number" min="0" required>
+            </div>
+
+            <div class="field">
+              <label>Stock mínimo</label>
+              <input id="producto-minimo" type="number" min="0" value="5" required>
+            </div>
+
+            <div class="field">
+              <label>Precio unitario (Bs)</label>
+              <input id="producto-precio" type="number" min="0" step="0.50" required>
+            </div>
+
+            <div class="field">
+              <label>Categoría</label>
+              <select id="producto-categoria">
+                <option>Cabello</option>
+                <option>Uñas</option>
+                <option>Facial</option>
+                <option>Maquillaje</option>
+                <option>Otros</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="actions">
+            <button class="primary" type="submit">Guardar producto</button>
+            <button class="secondary" type="reset" id="cancelar-producto">Limpiar</button>
+          </div>
+
+          <p class="message" id="mensaje-producto"></p>
+
+        </form>
+      </div>
+
+      <div class="content-card">
+
+        <h2>Inventario de productos</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Marca</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-productos"></tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CONFIGURACIÓN -->
+
+    <section class="panel" id="configuracion">
+
+      <div class="content-card">
+
+        <h2>Configuración del sistema</h2>
+
+        <form id="form-configuracion">
+
+          <div class="form-grid">
+
+            <div class="field">
+              <label>Nombre del salón</label>
+              <input id="config-nombre" required>
+            </div>
+
+            <div class="field">
+              <label>Teléfono</label>
+              <input id="config-telefono" required>
+            </div>
+
+            <div class="field full">
+              <label>Dirección</label>
+              <input id="config-direccion">
+            </div>
+
+            <div class="field">
+              <label>Horario de apertura</label>
+              <input id="config-apertura" type="time">
+            </div>
+
+            <div class="field">
+              <label>Horario de cierre</label>
+              <input id="config-cierre" type="time">
+            </div>
+
+          </div>
+
+          <div class="actions">
+            <button class="primary" type="submit">Guardar configuración</button>
+          </div>
+
+          <p class="message" id="mensaje-config"></p>
+
+        </form>
+
+      </div>
+
+      <div class="content-card">
+        <h2>Información del sistema</h2>
+        <p style="font-size:12px;color:#806e73;line-height:1.8">
+          Luna Bella - Sistema de gestión de servicios y productos.
+          Los datos de esta versión se guardan en el almacenamiento
+          local del navegador.
+        </p>
+      </div>
+
+    </section>
+
+    <footer>© 2026 Luna Bella · Panel administrativo</footer>
+
+  </main>
+
+</div>
+
+<script>
+const STORAGE = {
+  servicios: "lunabella_servicios",
+  productos: "lunabella_productos",
+  configuracion: "lunabella_configuracion"
+};
+
+const leer = (clave, defecto) => {
+  try {
+    const valor = localStorage.getItem(clave);
+    return valor ? JSON.parse(valor) : defecto;
+  } catch {
+    return defecto;
+  }
+};
+
+let servicios = leer(STORAGE.servicios, []);
+let productos = leer(STORAGE.productos, []);
+
+let configuracion = leer(STORAGE.configuracion, {
+  nombre: "Luna Bella",
+  telefono: "75450574",
+  direccion: "Sucre, Bolivia",
+  apertura: "09:00",
+  cierre: "19:00"
+});
+
+const guardar = (clave, datos) => {
+  localStorage.setItem(clave, JSON.stringify(datos));
+};
+
+const escapar = (valor) => String(valor ?? "").replace(/[&<>"']/g, caracter => ({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+})[caracter]);
+
+const dinero = valor => "Bs " + Number(valor).toFixed(2);
+
+// IMAGEN DEL SERVICIO Y VISTA PREVIA
+
+const inputImagen = document.querySelector("#servicio-imagen");
+const vistaPrevia = document.querySelector("#vista-previa-imagen");
+const imagenPrevia = document.querySelector("#imagen-previa");
+
+inputImagen.addEventListener("change", () => {
+  const archivo = inputImagen.files[0];
+
+  if (!archivo) {
+    return;
+  }
+
+  if (!archivo.type.startsWith("image/")) {
+    alert("Selecciona un archivo de imagen válido.");
+    inputImagen.value = "";
+    return;
+  }
+
+  const lector = new FileReader();
+
+  lector.onload = () => {
+    imagenPrevia.src = lector.result;
+    vistaPrevia.style.display = "block";
+  };
+
+  lector.readAsDataURL(archivo);
+});
+
+// REDUCIR EL TAMAÑO DE LA IMAGEN PARA GUARDARLA
+// EN EL ALMACENAMIENTO LOCAL DEL NAVEGADOR.
+
+function comprimirImagen(archivo) {
+  return new Promise((resolve, reject) => {
+    const lector = new FileReader();
+
+    lector.onload = () => {
+      const imagen = new Image();
+
+      imagen.onload = () => {
+        const maximo = 900;
+        const escala = Math.min(
+          1,
+          maximo / Math.max(imagen.width, imagen.height)
+        );
+
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(imagen.width * escala);
+        canvas.height = Math.round(imagen.height * escala);
+
+        const contexto = canvas.getContext("2d");
+        contexto.drawImage(imagen, 0, 0, canvas.width, canvas.height);
+
+        resolve(canvas.toDataURL("image/jpeg", 0.75));
+      };
+
+      imagen.onerror = () => reject(new Error("No se pudo leer la imagen."));
+      imagen.src = lector.result;
+    };
+
+    lector.onerror = () => reject(new Error("No se pudo cargar el archivo."));
+    lector.readAsDataURL(archivo);
+  });
+}
+
+
+function mostrarPanel(nombre) {
+  document.querySelectorAll(".panel").forEach(panel => {
+    panel.classList.toggle("active", panel.id === nombre);
+  });
+
+  document.querySelectorAll(".nav-button").forEach(boton => {
+    boton.classList.toggle("active", boton.dataset.panel === nombre);
+  });
+}
+
+document.querySelectorAll(".nav-button").forEach(boton => {
+  boton.addEventListener("click", () => {
+    mostrarPanel(boton.dataset.panel);
+  });
+});
+
+// SERVICIOS
+
+function renderServicios() {
+  const tabla = document.querySelector("#tabla-servicios");
+
+  tabla.innerHTML = servicios.length
+    ? servicios.map(s => `
+      <tr>
+        <td>${escapar(s.nombre)}</td>
+        <td>${escapar(s.categoria)}</td>
+        <td>${dinero(s.precio)}</td>
+        <td>${s.duracion ? escapar(s.duracion) + " min" : "—"}</td>
+        <td>
+          <button class="secondary" data-editar-servicio="${s.id}">Editar</button>
+          <button class="danger" data-eliminar-servicio="${s.id}">Eliminar</button>
+        </td>
+      </tr>
+    `).join("")
+    : `<tr><td colspan="5" class="empty">Todavía no hay servicios registrados.</td></tr>`;
+
+  document.querySelector("#total-servicios").textContent = servicios.length;
+}
+
+
+document.querySelector("#form-servicio").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const id = document.querySelector("#servicio-id").value;
+  const archivo = inputImagen.files[0];
+
+  const servicioAnterior = id
+    ? servicios.find(s => s.id === id)
+    : null;
+
+  // Para un servicio nuevo, la imagen es obligatoria.
+  if (!archivo && !servicioAnterior?.imagen) {
+    alert("Debes seleccionar una imagen para registrar el servicio.");
+    inputImagen.focus();
+    return;
+  }
+
+  try {
+    let imagen = servicioAnterior?.imagen || "";
+
+    // Si seleccionó otra imagen, se comprime y reemplaza la anterior.
+    if (archivo) {
+      if (!archivo.type.match(/^image\/(jpeg|png|webp)$/)) {
+        alert("Selecciona una imagen JPG, PNG o WEBP.");
+        return;
+      }
+
+      imagen = await comprimirImagen(archivo);
+    }
+
+    const servicio = {
+      id: id || String(Date.now()),
+      nombre: document.querySelector("#servicio-nombre").value.trim(),
+      categoria: document.querySelector("#servicio-categoria").value,
+      precio: Number(document.querySelector("#servicio-precio").value),
+      duracion: Number(document.querySelector("#servicio-duracion").value) || 0,
+      descripcion: document.querySelector("#servicio-descripcion").value.trim(),
+      imagen: imagen
+    };
+
+    const serviciosAnteriores = [...servicios];
+
+    if (id) {
+      servicios = servicios.map(s => s.id === id ? servicio : s);
+    } else {
+      servicios.push(servicio);
+    }
+
+    try {
+      guardar(STORAGE.servicios, servicios);
+    } catch (error) {
+      servicios = serviciosAnteriores;
+      alert("No se pudo guardar. La imagen puede ser demasiado grande o el almacenamiento del navegador puede estar lleno.");
+      return;
+    }
+
+    renderServicios();
+
+    document.querySelector("#mensaje-servicio").textContent =
+      id
+        ? "Servicio actualizado correctamente."
+        : "Servicio registrado correctamente.";
+
+    limpiarServicio();
+
+  } catch (error) {
+    console.error(error);
+    alert("Ocurrió un problema al procesar la imagen.");
+  }
+});
+
+
+
+function limpiarServicio() {
+  document.querySelector("#form-servicio").reset();
+  document.querySelector("#servicio-id").value = "";
+  document.querySelector("#titulo-servicio").textContent = "Agregar nuevo servicio";
+
+  inputImagen.required = true;
+  imagenPrevia.src = "";
+  vistaPrevia.style.display = "none";
+}
+
+
+document.querySelector("#cancelar-servicio").addEventListener("click", () => {
+  limpiarServicio();
+});
+
+document.querySelector("#tabla-servicios").addEventListener("click", e => {
+  const editar = e.target.dataset.editarServicio;
+  const eliminar = e.target.dataset.eliminarServicio;
+
+  if (editar) {
+    const s = servicios.find(item => item.id === editar);
+    if (!s) return;
+
+    document.querySelector("#servicio-id").value = s.id;
+    document.querySelector("#servicio-nombre").value = s.nombre;
+    document.querySelector("#servicio-categoria").value = s.categoria;
+    document.querySelector("#servicio-precio").value = s.precio;
+    document.querySelector("#servicio-duracion").value = s.duracion;
+    document.querySelector("#servicio-descripcion").value = s.descripcion;
+    
+    // Mostrar la imagen que ya tiene el servicio.
+    if (s.imagen) {
+      imagenPrevia.src = s.imagen;
+      vistaPrevia.style.display = "block";
+      inputImagen.required = false;
+    } else {
+      imagenPrevia.src = "";
+      vistaPrevia.style.display = "none";
+      inputImagen.required = true;
+    }
+
+    document.querySelector("#titulo-servicio").textContent = "Editar servicio";
+    mostrarPanel("servicios");
+    window.scrollTo(0, 0);
+  }
+
+  if (eliminar && confirm("¿Deseas eliminar este servicio?")) {
+    servicios = servicios.filter(s => s.id !== eliminar);
+    guardar(STORAGE.servicios, servicios);
+    renderServicios();
+  }
+});
+
+// PRODUCTOS
+
+function renderProductos() {
+  const tabla = document.querySelector("#tabla-productos");
+
+  tabla.innerHTML = productos.length
+    ? productos.map(p => {
+      const bajo = Number(p.cantidad) <= Number(p.minimo);
+
+      return `
+        <tr>
+          <td>${escapar(p.nombre)}</td>
+          <td>${escapar(p.marca)}</td>
+          <td>${escapar(p.cantidad)}</td>
+          <td>${dinero(p.precio)}</td>
+          <td>
+            <span class="status ${bajo ? "low" : ""}">
+              ${bajo ? "Stock bajo" : "Disponible"}
+            </span>
+          </td>
+          <td>
+            <button class="secondary" data-editar-producto="${p.id}">Editar</button>
+            <button class="danger" data-eliminar-producto="${p.id}">Eliminar</button>
+          </td>
+        </tr>
+      `;
+    }).join("")
+    : `<tr><td colspan="6" class="empty">Todavía no hay productos registrados.</td></tr>`;
+
+  document.querySelector("#total-productos").textContent = productos.length;
+
+  document.querySelector("#stock-bajo").textContent =
+    productos.filter(p => Number(p.cantidad) <= Number(p.minimo)).length;
+}
+
+document.querySelector("#form-producto").addEventListener("submit", e => {
+  e.preventDefault();
+
+  const id = document.querySelector("#producto-id").value;
+
+  const producto = {
+    id: id || String(Date.now()),
+    nombre: document.querySelector("#producto-nombre").value.trim(),
+    marca: document.querySelector("#producto-marca").value.trim(),
+    cantidad: Number(document.querySelector("#producto-cantidad").value),
+    minimo: Number(document.querySelector("#producto-minimo").value),
+    precio: Number(document.querySelector("#producto-precio").value),
+    categoria: document.querySelector("#producto-categoria").value
+  };
+
+  if (id) {
+    productos = productos.map(p => p.id === id ? producto : p);
+  } else {
+    productos.push(producto);
+  }
+
+  guardar(STORAGE.productos, productos);
+  renderProductos();
+
+  document.querySelector("#mensaje-producto").textContent =
+    id ? "Producto actualizado correctamente." : "Producto registrado correctamente.";
+
+  limpiarProducto();
+});
+
+function limpiarProducto() {
+  document.querySelector("#form-producto").reset();
+  document.querySelector("#producto-id").value = "";
+  document.querySelector("#titulo-producto").textContent = "Registrar producto";
+  document.querySelector("#producto-minimo").value = 5;
+}
+
+document.querySelector("#cancelar-producto").addEventListener("click", () => {
+  limpiarProducto();
+});
+
+document.querySelector("#tabla-productos").addEventListener("click", e => {
+  const editar = e.target.dataset.editarProducto;
+  const eliminar = e.target.dataset.eliminarProducto;
+
+  if (editar) {
+    const p = productos.find(item => item.id === editar);
+    if (!p) return;
+
+    document.querySelector("#producto-id").value = p.id;
+    document.querySelector("#producto-nombre").value = p.nombre;
+    document.querySelector("#producto-marca").value = p.marca;
+    document.querySelector("#producto-cantidad").value = p.cantidad;
+    document.querySelector("#producto-minimo").value = p.minimo;
+    document.querySelector("#producto-precio").value = p.precio;
+    document.querySelector("#producto-categoria").value = p.categoria;
+
+    document.querySelector("#titulo-producto").textContent = "Editar producto";
+    mostrarPanel("productos");
+    window.scrollTo(0, 0);
+  }
+
+  if (eliminar && confirm("¿Deseas eliminar este producto?")) {
+    productos = productos.filter(p => p.id !== eliminar);
+    guardar(STORAGE.productos, productos);
+    renderProductos();
+  }
+});
+
+// CONFIGURACIÓN
+
+function cargarConfiguracion() {
+  document.querySelector("#config-nombre").value = configuracion.nombre;
+  document.querySelector("#config-telefono").value = configuracion.telefono;
+  document.querySelector("#config-direccion").value = configuracion.direccion;
+  document.querySelector("#config-apertura").value = configuracion.apertura;
+  document.querySelector("#config-cierre").value = configuracion.cierre;
+}
+
+document.querySelector("#form-configuracion").addEventListener("submit", e => {
+  e.preventDefault();
+
+  configuracion = {
+    nombre: document.querySelector("#config-nombre").value.trim(),
+    telefono: document.querySelector("#config-telefono").value.trim(),
+    direccion: document.querySelector("#config-direccion").value.trim(),
+    apertura: document.querySelector("#config-apertura").value,
+    cierre: document.querySelector("#config-cierre").value
+  };
+
+  guardar(STORAGE.configuracion, configuracion);
+
+  document.querySelector("#mensaje-config").textContent =
+    "Configuración guardada correctamente.";
+});
+
+// INICIALIZACIÓN
+
+renderServicios();
+renderProductos();
+cargarConfiguracion();
+</script>
+
+</body>
+</html>
